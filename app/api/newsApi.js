@@ -4,8 +4,8 @@ const getAll = async () => {
   try {
     const response = await apiClient.get('/news');
 
-    if (response.data.success) {
-      return response.data.news;
+    if (response.data) {
+      return response.data;
     }
   } catch (error) {
     console.log('Error while getting all news.', error.message);
@@ -15,10 +15,10 @@ const getAll = async () => {
 
 const getSingle = async id => {
   try {
-    const response = await apiClient.get(`/news/single/${id}`);
+    const response = await apiClient.get(`/news/${id}`);
 
-    if (response.data.success) {
-      return response.data.news;
+    if (response.data) {
+      return response.data;
     }
   } catch (error) {
     console.log('error while getting single news', error);

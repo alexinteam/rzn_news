@@ -31,12 +31,22 @@ const useNews = () => {
     setLoading(true);
     const allNews = await newsApi.getAll();
 
-    setFeaturedNews(filterFeatured(allNews));
+    // setFeaturedNews(filterFeatured(allNews));
+    //
+    // setBreakingNews(filterByCategory(allNews, 'breaking-news'));
+    // setPoliticalNews(filterByCategory(allNews, 'political'));
+    // setEntertainmentNews(filterByCategory(allNews, 'entertainment'));
+    // setTechNews(filterByCategory(allNews, 'tech'));
 
-    setBreakingNews(filterByCategory(allNews, 'breaking-news'));
-    setPoliticalNews(filterByCategory(allNews, 'political'));
-    setEntertainmentNews(filterByCategory(allNews, 'entertainment'));
-    setTechNews(filterByCategory(allNews, 'tech'));
+
+    setFeaturedNews(allNews);
+
+    setBreakingNews(allNews);
+    setPoliticalNews(allNews);
+    setEntertainmentNews(allNews);
+    setTechNews(allNews);
+
+
     setLoading(false);
   };
 

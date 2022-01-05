@@ -7,6 +7,7 @@ import {
   Text,
   Dimensions,
 } from 'react-native';
+import RenderHtml from 'react-native-render-html';
 
 import newsApi from '../../api/newsApi';
 import HorizotalList from '../lists/HorizotalList';
@@ -19,7 +20,7 @@ const { width, height } = Dimensions.get('window');
 const NewsDetail = ({ route }) => {
   const [news, setNews] = useState({});
   const [relatedNews, setRelatedNews] = useState([]);
-  const { id: postId, category: postCategory } = route.params.item;
+  const { id: postId } = route.params.item;
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
@@ -30,26 +31,33 @@ const NewsDetail = ({ route }) => {
     setNews(result);
   };
 
-  const fetchRelatedPosts = async category => {
-    const result = await newsApi.getByCategory(postCategory, 6);
+  // const fetchRelatedPosts = async category => {
+  //   const result = await newsApi.getByCategory(postCategory, 6);
+  //   setRelatedNews(result.filter(item => item.id !== postId));
+  //   setLoading(false);
+  // };
+  const fetchRelatedPosts = async () => {
+    const result = await newsApi.getAll();
     setRelatedNews(result.filter(item => item.id !== postId));
     setLoading(false);
   };
 
   useEffect(() => {
     fetchPost(postId);
-    fetchRelatedPosts(postCategory);
+    fetchRelatedPosts();
   }, []);
 
-  const { title, content, thumbnail } = news;
+  const { title, text, imageUrl600x400 } = news;
+  const source = { html: text };
+  console.log(news)
   return (
     <>
-      <ActivityIndicator visible={loading} />
+      <ActivityIndicator vigit initsible={loading} />
       <ScrollView style={styles.container}>
-        <Image style={styles.image} source={{ uri: thumbnail }} />
+        <Image style={styles.image} source={{ uri: imageUrl600x400 }} />
         <View style={styles.contentContainer}>
           <Text style={styles.title}>{title}</Text>
-          <Text style={styles.content}>{content}</Text>
+          <RenderHtml style={styles.content} source={source} />
         </View>
         <View style={styles.relatedPostContainer}>
           <HorizotalList data={relatedNews} title='Related Posts' />

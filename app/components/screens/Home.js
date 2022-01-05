@@ -27,7 +27,7 @@ const Home = () => {
       <ActivityIndicator visible={loading} />
       <Screen isSearchFocused={isSearchFocused}>
         <SearchBar setSearchFocused={setSearchFocused} />
-        <FeaturedNews item={featuredNews} />
+        {/*<FeaturedNews item={featuredNews} />*/}
         <BreakingNews data={breakingNews} />
         <PoliticalNews data={politicalNews} />
         <TechNews data={techNews} />
