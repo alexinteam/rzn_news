@@ -1,8 +1,37 @@
 import apiClient from './client';
 
-const getAll = async () => {
+const getAllNews = async (timestamp = undefined, category = undefined) => {
   try {
-    const response = await apiClient.get('/news');
+    let params = {};
+    if(timestamp === undefined) {
+      timestamp = Math.round(Date.now() / 1000);
+    }
+
+    params.timestamp = timestamp - 1
+    if(category !== undefined) {
+      params.rubric = category
+    }
+
+    const response = await apiClient.get('/news',{params :  params});
+
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log('Error while getting all news.', error.message);
+    return [];
+  }
+};
+
+
+const getAllNewsByCategory = async (category) => {
+  try {
+    let params = {};
+
+    params.rubric= category
+    console.log(params.rubric)
+
+    const response = await apiClient.get('/news',{params :  params});
 
     if (response.data) {
       return response.data;
@@ -51,8 +80,9 @@ const searchPost = async query => {
 };
 
 export default {
-  getAll,
+  getAllNews,
   getByCategory,
   getSingle,
   searchPost,
+  getAllNewsByCategory
 };

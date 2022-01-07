@@ -10,6 +10,7 @@ import PoliticalNews from '../PoliticalNews';
 import TechNews from '../TechNews';
 import EntertainmentNews from '../EntertainmentNews';
 import ActivityIndicator from '../common/ActivityIndicator';
+import HomeTopBlock from "../home/HomeTopBlock";
 
 const Home = () => {
   const [isSearchFocused, setSearchFocused] = useState(false);
@@ -26,8 +27,9 @@ const Home = () => {
     <>
       <ActivityIndicator visible={loading} />
       <Screen isSearchFocused={isSearchFocused}>
+        <HomeTopBlock />
         <SearchBar setSearchFocused={setSearchFocused} />
-        {/*<FeaturedNews item={featuredNews} />*/}
+        <FeaturedNews item={featuredNews} />
         <BreakingNews data={breakingNews} />
         <PoliticalNews data={politicalNews} />
         <TechNews data={techNews} />

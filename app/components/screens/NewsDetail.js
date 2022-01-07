@@ -6,8 +6,12 @@ import {
   View,
   Text,
   Dimensions,
+  ImageBackground,
+  Button
 } from 'react-native';
+import { IconButton, Colors } from 'react-native-paper';
 import RenderHtml from 'react-native-render-html';
+import { AntDesign } from '@expo/vector-icons';
 
 import newsApi from '../../api/newsApi';
 import HorizotalList from '../lists/HorizotalList';
@@ -37,7 +41,7 @@ const NewsDetail = ({ route }) => {
   //   setLoading(false);
   // };
   const fetchRelatedPosts = async () => {
-    const result = await newsApi.getAll();
+    const result = await newsApi.getAllNews();
     setRelatedNews(result.filter(item => item.id !== postId));
     setLoading(false);
   };
@@ -47,14 +51,25 @@ const NewsDetail = ({ route }) => {
     fetchRelatedPosts();
   }, []);
 
+
   const { title, text, imageUrl600x400 } = news;
   const source = { html: text };
-  console.log(news)
   return (
     <>
       <ActivityIndicator vigit initsible={loading} />
       <ScrollView style={styles.container}>
-        <Image style={styles.image} source={{ uri: imageUrl600x400 }} />
+        <View>
+          <ImageBackground style={styles.image} source={{uri: imageUrl600x400 }} resizeMode="cover">
+            <AntDesign
+                name='left'
+                size={25}
+                color='red'
+                onPress={() => navigation.goBack()}
+                style={{marginTop:50,marginLeft:30}}
+            />
+          </ImageBackground>
+        </View>
+        {/*<Image style={styles.image} source={{ uri: imageUrl600x400 }} />*/}
         <View style={styles.contentContainer}>
           <Text style={styles.title}>{title}</Text>
           <RenderHtml style={styles.content} source={source} />

@@ -11,7 +11,7 @@ const useNews = () => {
   const [loading, setLoading] = useState(false);
 
   const filterFeatured = data => {
-    return data.filter(item => item.featured === 'on').reverse()[0];
+    return data[0];
   };
 
   const filterByCategory = (data, category) => {
@@ -29,7 +29,7 @@ const useNews = () => {
 
   const filterMultipleNews = async () => {
     setLoading(true);
-    const allNews = await newsApi.getAll();
+    const allNews = await newsApi.getAllNews();
 
     // setFeaturedNews(filterFeatured(allNews));
     //
@@ -39,7 +39,7 @@ const useNews = () => {
     // setTechNews(filterByCategory(allNews, 'tech'));
 
 
-    setFeaturedNews(allNews);
+    setFeaturedNews(allNews[0]);
 
     setBreakingNews(allNews);
     setPoliticalNews(allNews);
@@ -53,6 +53,7 @@ const useNews = () => {
   useEffect(() => {
     filterMultipleNews();
   }, []);
+
 
   return [
     featuredNews,

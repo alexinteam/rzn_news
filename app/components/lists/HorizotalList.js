@@ -4,11 +4,10 @@ import Title from '../common/Title';
 import SmallCard from '../cards/SmallCard';
 import { useNavigation } from '@react-navigation/native';
 
-const HorizotalList = ({ title, data }) => {
+const HorizotalList = ({ data }) => {
   const navigation = useNavigation();
   return (
     <>
-      <Title size={20}>{title}</Title>
       <View style={styles.listStyle}>
         <FlatList
           data={data}
@@ -17,7 +16,7 @@ const HorizotalList = ({ title, data }) => {
           showsHorizontalScrollIndicator={false}
           renderItem={({ item }) => (
             <SmallCard
-              onPress={() => navigation.push('NewsDetail', { item })}
+              onPress={() => navigation.push('News')}
               item={item}
             />
           )}

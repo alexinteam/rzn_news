@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   View,
+  Text,
   StyleSheet,
   Image,
   TouchableWithoutFeedback,
@@ -9,7 +10,7 @@ import Title from '../common/Title';
 import Subtitle from '../common/Subtitle';
 
 const FlatCard = ({ item, onPress }) => {
-  const { imageUrl600x400, title, subTitle } = item;
+  const { imageUrl600x400, title, subTitle, dateFormatted } = item;
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
@@ -17,6 +18,10 @@ const FlatCard = ({ item, onPress }) => {
         <View style={styles.contentContainer}>
           <Title>{title}</Title>
           <Subtitle>{subTitle}</Subtitle>
+          <View style={{flexDirection: "row", paddingVertical: 4}}>
+            <Text numberOfLines={1}>{dateFormatted}</Text>
+            <View style={{flex: 1}}/>
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -31,7 +36,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
     marginBottom: 10,
-    height: 80,
+    height: 120,
   },
   image: {
     flex: 0.35,
