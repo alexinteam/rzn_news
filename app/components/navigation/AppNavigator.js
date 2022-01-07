@@ -2,7 +2,8 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator} from '@react-navigation/drawer';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import Home from '../screens/Home';
 import NewsDetail from '../screens/NewsDetail';
 import NewsList from '../screens/NewsList';
@@ -12,9 +13,9 @@ const Drawer = createDrawerNavigator();
 
 function StackNewsNavigation() {
     return (
-        <Stack.Navigator headerMode="screen">
-            <Stack.Screen name='NewsList' component={NewsList} options={{ headerShown: false }} />
-            <Stack.Screen name='NewsDetail' component={NewsDetail} options={{ headerShown: false }} />
+        <Stack.Navigator headerMode="screen" >
+            <Stack.Screen name='NewsList' component={NewsList} options={{ headerShown: false }}  />
+            <Stack.Screen name='NewsDetail' component={NewsDetail} options={{ headerShown: false }}  />
         </Stack.Navigator>
     );
 }
@@ -38,7 +39,7 @@ function StackHomeNavigation() {
 }
 
 const AppNavigator = () => {
-  return (
+    return (
       <Drawer.Navigator
           initialRouteName="Home"
       >
@@ -47,20 +48,17 @@ const AppNavigator = () => {
                          screenOptions={{headerShown:false}}
                          options={{
                               headerShown: false,
-                              headerStyle: {
-                                  backgroundColor: '#eeb378',
-                              },
                           }}
           />
           <Drawer.Screen name="News"
                          component={StackNewsNavigation}
                          screenOptions={{headerShown:false}}
-                         options={{
-                               headerShown: false,
-                               headerStyle: {
-                                   backgroundColor: '#eeb378',
-                               },
-                           }}
+                         options={({ route }) => ({
+                             headerShown: getFocusedRouteNameFromRoute(route) !== 'NewsDetail',
+                             headerStyle: {
+                                 backgroundColor: '#eeb378',
+                             },
+                         })}
 
           />
           <Drawer.Screen name="Publications" component={StackPublicationNavigation} />
