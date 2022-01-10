@@ -1,8 +1,14 @@
 {
   "expo": {
-    "name": "RZNNewsTest",
-    "slug": "RZNNewsTest",
+    "name": "RZNNewsFeatureTest",
+    "slug": "RZNNewsFeatureTest",
+    "privacy": "unlisted",
+    "sdkVersion": "44.0.0",
     "version": "0.0.1",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +23,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "info.rzn.RZNinfo-feature-test"
     },
     "android": {
       "adaptiveIcon": {
